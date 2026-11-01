@@ -1,0 +1,14 @@
+# 官方代码与权重：运行时在 Notebook 里 clone，不入库
+DTMFormer/
+checkpoints_ACDC/
+*.pth
+*.pt
+
+# 数据
+h5/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# 临时
+~$*

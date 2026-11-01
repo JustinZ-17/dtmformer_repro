@@ -1,0 +1,13 @@
+# DTMFormer 复现环境（Kaggle Notebook / Python 3.13）
+# 注意：不要安装 PyPI 上的 visualizer —— 它与作者 import 的那个同名但不含 get_local
+torch>=2.0
+torchvision>=0.15
+einops
+thop
+medpy
+hausdorff
+opencv-python-headless
+h5py
+numpy
+matplotlib
+tqdm
