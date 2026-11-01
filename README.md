@@ -82,7 +82,7 @@ README 里一个字都没提。
 | ③ | `cannot import name 'get_local' from 'visualizer'` | 作者 import 了一个 PyPI 上**同名不同包**的东西；且 `get_local` 在全仓库从未被调用，是死代码 | 不装该包，改为注入占位模块到 `sys.modules` |
 | ④ | `EinopsError: can't divide axis of length 154 in chunks of 8` | pipeline 里**没有任何 resize**，`--imgsize 256` 是障眼法——磁盘上的 PNG 必须已经是 256×256 | 生成 PNG 时统一 resize；图片用 `INTER_LINEAR`，**标签必须用 `INTER_NEAREST`** |
 | ⑤ | 只评估也报 `FileNotFoundError` | 作者代码同时依赖 `trainofficial.txt` 和 `testofficial.txt`，且靠「文件名前 3 位 == 病人号」聚合成 patient | 文件名写成 `pid:03d_frame_slice.png`，列表严格按病人排序 |
-| ⑥ | `RecursionError: maximum recursion depth exceeded` | Notebook 里 `_raw = torch.load` 存的是**全局变量**，重跑该单元格时它会被重新赋值成上一次的补丁本身，补丁自我调用 | 千萬别从 `torch.load` 取原函数。用 `torch.serialization.load`，并在定义时用默认参数绑死：<br>`def _patched_load(*a, _real=_TRUE_LOAD, **kw)` |
+| ⑥ | `RecursionError: maximum recursion depth exceeded` | Notebook 里 `_raw = torch.load` 存的是**全局变量**，重跑该单元格时它会被重新赋值成上一次的补丁本身，补丁自我调用 | 千万别从 `torch.load` 取原函数。用 `torch.serialization.load`，并在定义时用默认参数绑死：<br>`def _patched_load(*a, _real=_TRUE_LOAD, **kw)` |
 
 坑 ⑥ 是这一趟最隐蔽的一个：**同样的代码写成 `.py` 脚本没问题，放 Notebook 里跑两次就炸**。
 
