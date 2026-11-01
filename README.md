@@ -38,13 +38,6 @@
 | 数据集 | Kaggle `anhoangvo/acdc-dataset`（h5，float32，值域 0~1，原始尺寸 256×216） |
 | 权重 | `checkpoints_ACDC/Setr_DTMFormer.pth`，143,838,716 字节（≈137.2 MiB），fp32，**未做任何微调** |
 
-四个手动装的包都是作者的隐藏依赖，README 里一个字没提：
-
-- `einops` —— patch 与 token 之间的张量变形（`Rearrange`），不装模型第一步就崩
-- `thop` —— 统计 GFLOPs 与参数量，第 1 节那两个数靠它
-- `hausdorff` —— `test.py` 顶部直接 import，不装报 ModuleNotFoundError
-- `medpy` —— HD95 计算；装不上时 Notebook 内有同公式的 scipy 实现兜底
-
 ### 2.1 权重怎么拿到的
 
 仓库里的 `Setr_DTMFormer.pth` 是 **Git LFS 指针**，只有 134 字节。真实文件必须走 media 通道：
